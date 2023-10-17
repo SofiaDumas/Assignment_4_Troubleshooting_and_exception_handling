@@ -74,29 +74,31 @@ except ValueError:
         else: 
              rejected_records.append((row, error_message))
         ### COLLECT INVALID RECORDS ###
-finally:
-    csv_file.write("END OF FILE.")
-    csv_file.close()        
-
+    
 
 print("PiXELL River Transaction Report\n===============================\n")
-# Print the final account balances for each customer
-for customer_id, data in customer_data.items():
-    balance = data['balance']
+try:
+    # Print the final account balances for each customer
+    for customer_id, data in customer_data.items():
+        balance = data['balance']
 
-    print(f"\nCustomer {customer_id} has a balance of {balance}.")
-    # Print the transaction history for the customer
-    print("Transaction History:")
-    for transaction in data['transactions']:
-        amount, type = transaction
-        print(f"\t{type.capitalize()}: {amount}")
-
-print(f"\nAVERAGE TRANSACTION AMOUNT: {(total_transaction_amount / transaction_counter)}")
+        print(f"\nCustomer {customer_id} has a balance of {balance}.")
+        # Print the transaction history for the customer
+        print("Transaction History:")
+        for transaction in data['transactions']:
+            amount, type = transaction
+            print(f"\t{type.capitalize()}: {amount}")
+    print(f"\nAVERAGE TRANSACTION AMOUNT: {(total_transaction_amount / transaction_counter)}")
+except: ZeroDivisionError
+print("Cannot divide by zero")
 
 print("\nREJECTED RECORDS\n================")
 for record in rejected_records:
     print("REJECTED:", record)
 
+#vfinally:
+    # csv_file.write("END OF FILE.")
+    # csv_file.close()  
 
 print("End of Program")
 logging.debug("Debug level message.")
