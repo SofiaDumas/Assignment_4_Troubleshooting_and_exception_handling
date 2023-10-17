@@ -71,7 +71,8 @@ except ValueError:
             
             # Record  transactions in the customer's transaction history
             customer_data[customer_id]['transactions'].append((transaction_amount, transaction_type))
-        
+        else: 
+             rejected_records.append(row, error_message)
         ### COLLECT INVALID RECORDS ###
         
 
