@@ -53,7 +53,7 @@ try:
 except ValueError:
         valid_record = False
         error_message += "Record has a non-numeric transaction amount."
-        
+
         if valid_record:
             # Initialize the customer's account balance if it doesn't already exist
             if customer_id not in customer_data:
@@ -96,9 +96,6 @@ print("\nREJECTED RECORDS\n================")
 for record in rejected_records:
     print("REJECTED:", record)
 
-#vfinally:
-    # csv_file.write("END OF FILE.")
-    # csv_file.close()  
 
 print("End of Program")
 logging.debug("Debug level message.")
