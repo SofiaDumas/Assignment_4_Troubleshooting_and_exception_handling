@@ -8,7 +8,9 @@ report the results.
 """
 import csv
 import os
- 
+import logging
+
+# Setting the variables 
 valid_transaction_types = ['deposit', 'withdraw']
 customer_data = {}
 rejected_records = []
@@ -18,27 +20,40 @@ total_transaction_amount = 0
 valid_record = True
 error_message = ''
 
+# Telling the code to clear the screen in a Windows or other OS: 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-
-with open('bank_data.csv', 'r') as csv_file:
-    reader = csv.reader(csv_file)
-    for row in reader:
-        # Reset valid record and error message for each iteration
-        valid_record = True
-        error_message = ''
-
+# Telling the code to read the file #
+try:
+    with open('bank_data.csv', 'r') as csv_file:
+        reader = csv.reader(csv_file)
+        for row in reader:
+            # Reset valid record and error message for each iteration
+            valid_record = True
+            error_message = ''
+except FileNotFoundError as e:
+        print("ERROR: File not found", e)
+        logging.error
+except Exception as e:
+        print.error(e)
         # Extract the customer ID from the first column
         customer_id = row[0]
         
         # Extract the transaction type from the second column
         transaction_type = row[1]
         ### VALIDATION 1 ###
+        if transaction_type not in valid_transaction_types:
+             valid_record = False
+             error_message += "Invalid transaction type: {transaction_type}."
 
         # Extract the transaction amount from the third column
         ### VALIDATION 2 ###
+try:
         transaction_amount = float(row[2])
-
+except ValueError:
+        valid_record = False
+        error_message += "Record has a non-numeric transaction amount."
+        
         if valid_record:
             # Initialize the customer's account balance if it doesn't already exist
             if customer_id not in customer_data:
@@ -78,3 +93,13 @@ print(f"\nAVERAGE TRANSACTION AMOUNT: {(total_transaction_amount / transaction_c
 print("\nREJECTED RECORDS\n================")
 for record in rejected_records:
     print("REJECTED:", record)
+finally:
+csv_file.read("END OF FILE.")
+csv_file.close()
+
+print("End of Program")
+logging.debug("Debug level message.")
+logging.info("Info level message.")
+logging.warning("Warning level message.")
+logging.error("Error level message.")
+logging.critical("Critical level message.")

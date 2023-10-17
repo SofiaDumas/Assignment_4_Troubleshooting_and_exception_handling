@@ -3,6 +3,9 @@
 ## Description
 This project is about troubleshooting and entering exception to let the code run and not crash. 
 
+## Code Modification: 
+Update 1: Added exception handling to file operations for file not found.
+
 ## Author
 Maria Sofia Dumas
 
